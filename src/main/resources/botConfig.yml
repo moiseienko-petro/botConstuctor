@@ -1,0 +1,112 @@
+pathToEnv: http://localhost:8087
+userApiPath: /user/phone/{phone}
+botUsername: MagisterBot
+botToken: 1006114821:AAFWZA383ShZ8bmSJEblQMcyQ2n-LNpDuCY
+userNotFoundMessage: You're not active user. You can sign out here - http://somelink.com
+userExists:
+
+menu:
+   message: Welcome to main menu
+   menuItems:
+    - name: Products
+      path: null
+      message: Select category
+      menuItems:
+       - name: Phone plans
+         path: /products/category/1/user/{userId}
+         message: >
+                               <emoji:exclamation:>{name} |
+                               <emoji:white_check_mark:>{description}|
+                               Price: {price}UAH/{duration}
+         action: <if {isActive} value='/user/{userId}/product/{id}' method='DELETE'><else value='/user/{userId}/product/{id}' method='POST'>
+         actionMessage: <if {isActive} value='Deactivate plan'><else value='Activate plan'>
+         text: It's our Phone plans
+         successMessage: Successfull!
+         errorMessage: Something went wrong
+
+       - name: TV
+         path: /products/category/2/user/{userId}
+         message: >
+                         <emoji:exclamation:>{name} |
+                         <emoji:white_check_mark:>{description}|
+                         Price: {price}UAH/{duration}
+         action: <if {isActive} value='/user/{userId}/product/{id}' method='DELETE'><else value='/user/{userId}/product/{id}' method='POST'>
+         actionMessage: <if {isActive} value='Deactivate product'><else value='Activate product'>
+         text: It's our TV products
+         successMessage: Successfull!
+         errorMessage: Something went wrong
+
+       - name: Internet
+         path: /products/category/3/user/{userId}
+         message: >
+                         <emoji:exclamation:>{name} |
+                         <emoji:white_check_mark:>{description}|
+                         Price: {price}UAH/{duration}
+         action: <if {isActive} value='/user/{userId}/product/{id}' method='DELETE'><else value='/user/{userId}/product/{id}' method='POST'>
+         actionMessage: <if {isActive} value='Deactivate product'><else value='Activate product'>
+         text: It's our Internet products
+         successMessage: Successfull!
+         errorMessage: Something went wrong
+
+       - name: OTT
+         path: /products/category/4/user/{userId}
+         message: >
+                         <emoji:exclamation:>{name} |
+                         <emoji:white_check_mark:>{description}|
+                         Price: {price}UAH/{duration}
+         action: <if {isActive} value='/user/{userId}/product/{id}' method='DELETE'><else value='/user/{userId}/product/{id}' method='POST'>
+         actionMessage: <if {isActive} value='Deactivate product'><else value='Activate product'>
+         text: It's our OTT products
+         successMessage: Successfull!
+         errorMessage: Something went wrong
+
+    - name: Services
+      path: /services/{userId}
+      message: >
+                <emoji:exclamation:>[{category}] {name} |
+                <emoji:white_check_mark:>{description}|
+                Price: {price}UAH/{duration}
+      action: <if {isActive} value='/user/{userId}/service/{id}' method='DELETE'><else value='/user/{userId}/service/{id}' method='POST'>
+      actionMessage: <if {isActive} value='Deactivate service'><else value='Activate service'>
+      text: It's our services
+      successMessage: Successfull!
+      errorMessage: Something went wrong
+
+    - name: Bonus Program
+      path: /loyalties
+      text: Here you can choose bonuses
+      message: >
+         <emoji:gift:>{name}|
+         {description}|
+         {bonusValue}
+      action: value='/user/{userId}/loyalty/{id}' method='POST'
+      actionMessage: value='Activate loyalty'
+      successMessage: Bonus successfully added!
+      errorMessage: Something went wrong
+
+    - name: Settings
+      path: null
+      message: There are information about your profile
+      menuItems:
+        - name: My products
+          path: /user/{userId}/products
+          message: >
+                   <emoji:large_blue_circle:>[{productTemplate.productCategory.name}] {productTemplate.name} |
+                   {productTemplate.description}
+        - name: My services
+          path: /user/{userId}/services
+          message: >
+                   <emoji:red_circle:>[{productCategory.name}] {name} |
+                   {description}
+        - name: Bonus history
+          path: /user/{userId}/bonuses
+          message: >
+                   <emoji:gift:>{name}|
+                   {description} |
+                   Bonus number:  {number}|
+                   Order date: {orderDate}
+        - name: My Balance
+          path: /user/{userId}/accountState
+          message: >
+                   Now your balance is {balanceValue}|
+                   Your bonuses are {bonusValue}
