@@ -3,7 +3,7 @@ userApiPath: /user/phone/{phone}
 botUsername: MagisterBot
 botToken: 1006114821:AAFWZA383ShZ8bmSJEblQMcyQ2n-LNpDuCY
 userNotFoundMessage: You're not active user. You can sign out here - http://somelink.com
-userExists:
+userExists: You're signed in successfully
 
 menu:
    message: Welcome to main menu
