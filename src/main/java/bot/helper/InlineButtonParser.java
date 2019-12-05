@@ -53,12 +53,14 @@ public class InlineButtonParser {
                 actionButton = getActionButton(item.getAction(), node, user.getId(), actionMessage, oppositeActionMessage, successMessage, errorMessage);
             }
 
-            InlineKeyboardMarkup markup = createMarkup(actionButton, actionMessage);
+            InlineKeyboardMarkup markup = createMarkup(actionButton, actionMessage, user.getTelegramId());
             return markup;
         }
     }
 
-    private InlineKeyboardMarkup createMarkup(ActionButton actionButton, String text) {
+    private InlineKeyboardMarkup createMarkup(ActionButton actionButton, String text, Integer telegramId) {
+        actionButton.setTelegramId(telegramId);
+
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         InlineKeyboardButton button = new InlineKeyboardButton();
         button.setText(text);

@@ -122,6 +122,7 @@ public class AnswerHelper {
         MenuItem menuItem;
         String text = update.getMessage().getText();
         if (isBackButtonPushed(text)) {
+            actionButtonManager.deleteActionButtonsForUser(update.getMessage().getFrom().getId());
             String menuName = getMenuItemNameFromBackButton(text);
             if (menuName == null) {
                 menuItem = menuHelper.getMenuItem(text, true, true);

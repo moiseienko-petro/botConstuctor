@@ -61,6 +61,7 @@ public class MenuHelper {
             for (MenuItem item1 : item.getMenuItems()) {
                 if (item1.getName().equals(name)) {
                     result = item;
+                    break;
                 }
             }
             if (result == null) {

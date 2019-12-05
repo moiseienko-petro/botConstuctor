@@ -2,10 +2,7 @@ package bot.data_layer.model;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Transactional
@@ -14,15 +11,24 @@ public class ActionButton {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.REMOVE)
     private ActionItem request;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.REMOVE)
     private ActionItem oppositeRequest;
 
     private String successMessage;
     private String errorMessage;
+    private Integer telegramId;
 
     public ActionButton() {
+    }
+
+    public Integer getTelegramId() {
+        return telegramId;
+    }
+
+    public void setTelegramId(Integer telegramId) {
+        this.telegramId = telegramId;
     }
 
     public String getSuccessMessage() {

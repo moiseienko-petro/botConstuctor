@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ActionButtonManager {
 
@@ -23,6 +25,11 @@ public class ActionButtonManager {
          actionItemRepository.save(actionButton.getOppositeRequest());
          ActionButton saved = actionButtonRepository.save(actionButton);
          return saved.getId();
+    }
+
+    @Transactional
+    public void deleteActionButtonsForUser(Integer telegramId){
+        actionButtonRepository.deleteActionButtonByTelegramId(telegramId);
     }
 
     public ActionButton getActionButton(Long id) {
