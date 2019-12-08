@@ -8,7 +8,7 @@ public abstract class UrlUtil {
         String result = urlPattern;
         for (String key : values.keySet()) {
             if (urlPattern.contains("{" + key + "}")) {
-                result = urlPattern.replace("{" + key + "}", values.get(key));
+                result = result.replace("{" + key + "}", values.get(key));
             }
         }
         return result;

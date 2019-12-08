@@ -3,6 +3,7 @@ package bot.data_layer.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class ActionItem {
@@ -48,5 +49,21 @@ public class ActionItem {
 
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActionItem that = (ActionItem) o;
+        return Objects.equals(id, that.id) &&
+                action.equals(that.action) &&
+                method.equals(that.method) &&
+                message.equals(that.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, action, method, message);
     }
 }

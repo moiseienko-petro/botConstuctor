@@ -58,7 +58,7 @@ public class InlineButtonParser {
         }
     }
 
-    private InlineKeyboardMarkup createMarkup(ActionButton actionButton, String text, Integer telegramId) {
+    InlineKeyboardMarkup createMarkup(ActionButton actionButton, String text, Integer telegramId) {
         actionButton.setTelegramId(telegramId);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
@@ -71,12 +71,12 @@ public class InlineButtonParser {
         return markup;
     }
 
-    private String getActionMessageWithoutConditions(String message) {
+    String getActionMessageWithoutConditions(String message) {
         return getTagValue(message, VALUE_TAG);
     }
 
-    private String getActionMessage(String message, JsonNode node, boolean isIfPart) {
-        String ifPart = message.substring(0, message.indexOf(TAG_CLOSER));
+    String getActionMessage(String message, JsonNode node, boolean isIfPart) {
+        String ifPart = message.substring(0, message.indexOf(TAG_CLOSER) + 1);
         String elsePart = message.substring(message.indexOf(TAG_CLOSER) + 1);
 
         Matcher matcher = FIELD_NAME_PATTERN.matcher(ifPart);
@@ -96,7 +96,7 @@ public class InlineButtonParser {
         }
     }
 
-    private ActionButton getActionButtonWithoutConditions(String action, JsonNode node,
+    ActionButton getActionButtonWithoutConditions(String action, JsonNode node,
                                                           Long userId, String actionMessage,
                                                           String successMessage, String errorMessage) {
         ActionItem actionItem = new ActionItem();
@@ -110,10 +110,10 @@ public class InlineButtonParser {
                 .setErrorMessage(errorMessage).build();
     }
 
-    private ActionButton getActionButton(String action, JsonNode node,
+    ActionButton getActionButton(String action, JsonNode node,
                                          Long userId, String actionMessage, String oppositeMessage,
                                          String successMessage, String errorMessage) {
-        String ifPart = action.substring(0, action.indexOf(TAG_CLOSER));
+        String ifPart = action.substring(0, action.indexOf(TAG_CLOSER)+1);
         String elsePart = action.substring(action.indexOf(TAG_CLOSER) + 1);
 
         Matcher matcher = FIELD_NAME_PATTERN.matcher(ifPart);
@@ -134,7 +134,7 @@ public class InlineButtonParser {
 
     }
 
-    private ActionButton createActionButton(JsonNode node, Long userId,
+    ActionButton createActionButton(JsonNode node, Long userId,
                                             String requestPart, String oppositeRequestPart,
                                             String actionMessage, String oppositeMessage,
                                             String successMessage, String errorMessage) {
@@ -153,7 +153,7 @@ public class InlineButtonParser {
                 .setErrorMessage(errorMessage).build();
     }
 
-    private String getTagValue(String tag, String tagName) {
+    String getTagValue(String tag, String tagName) {
         int methodTagIndex = tag.indexOf(tagName);
         int startTagValue = methodTagIndex + tagName.length();
         String tagPart = tag.substring(startTagValue);
@@ -161,13 +161,13 @@ public class InlineButtonParser {
         return tagPart.substring(0, endTagValue);
     }
 
-    private String getAction(String tag, Long userId, JsonNode node) {
+    String getAction(String tag, Long userId, JsonNode node) {
         String value = getTagValue(tag, VALUE_TAG);
         Map<String, String> params = getValueMap(node, value, userId);
         return FieldsUtil.replaceFieldPatternWithValues(value, params);
     }
 
-    private Map<String, String> getValueMap(JsonNode node, String url, Long userId) {
+    Map<String, String> getValueMap(JsonNode node, String url, Long userId) {
 
         List<String> fieldNames = FieldsUtil.getFieldNamePatternsFromText(url);
         Map<String, String> valueMap = FieldsUtil.createValueMapForFields(node, fieldNames);

@@ -52,7 +52,7 @@ public class ResponseParser {
         return restClient.getForObject(url, urlParams);
     }
 
-    private String parse(JsonNode object, String message, List<String> fields) {
+    String parse(JsonNode object, String message, List<String> fields) {
         Map<String, String> valueMap = FieldsUtil.createValueMapForFields(object, fields);
         String result = FieldsUtil.replaceFieldPatternWithValues(message, valueMap);
         result = PrettyTextUtil.splitMultiLineText(result);

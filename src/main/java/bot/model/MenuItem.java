@@ -2,6 +2,7 @@ package bot.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MenuItem {
     private String name;
@@ -84,5 +85,26 @@ public class MenuItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return Objects.equals(name, menuItem.name) &&
+                Objects.equals(path, menuItem.path) &&
+                Objects.equals(message, menuItem.message) &&
+                Objects.equals(menuItems, menuItem.menuItems) &&
+                Objects.equals(action, menuItem.action) &&
+                Objects.equals(actionMessage, menuItem.actionMessage) &&
+                Objects.equals(text, menuItem.text) &&
+                Objects.equals(successMessage, menuItem.successMessage) &&
+                Objects.equals(errorMessage, menuItem.errorMessage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, path, message, menuItems, action, actionMessage, text, successMessage, errorMessage);
     }
 }

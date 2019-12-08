@@ -3,6 +3,7 @@ package bot.data_layer.model;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Transactional
@@ -69,5 +70,22 @@ public class ActionButton {
 
     public void setOppositeRequest(ActionItem oppositeRequest) {
         this.oppositeRequest = oppositeRequest;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActionButton that = (ActionButton) o;
+        return request.equals(that.request) &&
+                oppositeRequest.equals(that.oppositeRequest) &&
+                successMessage.equals(that.successMessage) &&
+                errorMessage.equals(that.errorMessage) &&
+                Objects.equals(telegramId, that.telegramId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(request, oppositeRequest, successMessage, errorMessage, telegramId);
     }
 }

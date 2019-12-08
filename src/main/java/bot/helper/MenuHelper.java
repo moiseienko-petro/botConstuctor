@@ -25,7 +25,7 @@ public class MenuHelper {
         }
     }
 
-    private MenuItem getMenuItemByName(String name, List<MenuItem> items) {
+    MenuItem getMenuItemByName(String name, List<MenuItem> items) {
         MenuItem result = null;
         if (items == null) {
             return null;
@@ -46,7 +46,7 @@ public class MenuHelper {
 
     public MenuItem getParentLevel(String name) {
         List<MenuItem> menuItems = menuConfig.getMenuItems();
-        return getParentItemByName(name, menuConfig.getMenuItems());
+        return getParentItemByName(name, menuItems);
     }
 
     private MenuItem getParentItemByName(String name, List<MenuItem> items) {
@@ -73,9 +73,9 @@ public class MenuHelper {
         return result;
     }
 
-    private MenuItem getRootMenuItem(boolean isRoot) {
+     MenuItem getRootMenuItem(boolean isLogin) {
         MenuItem menuItem = new MenuItem();
-        if (!isRoot) {
+        if (isLogin) {
             menuItem.setMessage(botConfig.getUserExists());
         } else {
             menuItem.setMessage(menuConfig.getMessage());
